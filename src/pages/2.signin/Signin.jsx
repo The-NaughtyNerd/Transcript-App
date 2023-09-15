@@ -1,4 +1,12 @@
+import { useEffect, useState } from 'react';
+
 const Signin = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className="grid place-content-center overflow-hidden md:h-screen bg-gradient-to-r from-[#5d12ad19] to-sky-50">
       <div className="w-full flex md:flex-row flex-col justify-between md:p-14 rounded-md shadow-2xl">
@@ -21,7 +29,7 @@ const Signin = () => {
             Sign in your account
           </h6>
 
-          <form className="pt-4">
+          <form onSubmit={handleSubmit} className="pt-4">
             <label htmlFor="email" className="pl-3 text-base pb-1 font-medium">
               Email
             </label>
@@ -30,10 +38,16 @@ const Signin = () => {
               type="email"
               name="email"
               id="email"
+              value={email}
+              onChange={(e) => {
+                const details = e.target.value;
+                setEmail(details);
+              }}
               placeholder="example@mail.com"
               className="border w-[70%] py-1.5 mb-5 rounded-[4px] focus:border focus:border-blue-400 px-3 outline-none "
               required
             />
+
             <br />
             <label
               htmlFor="password"
@@ -47,11 +61,19 @@ const Signin = () => {
               name="password"
               placeholder="password"
               id="password"
+              value={password}
+              onChange={(e) => {
+                const details = e.target.value;
+                setPassword(details);
+              }}
               className="border w-[70%] py-1.5 mb-5 rounded-[4px] focus:border focus:border-blue-400 px-3 outline-none"
               required
             />
             <br />
-            <button className="text-white transition-all ease-out bg-[#ab60fa] hover:bg-[#9f5fe3] py-2 px-8 rounded-sm">
+            <button
+              type="submit"
+              className="text-white transition-all ease-out bg-[#ab60fa] hover:bg-[#9f5fe3] py-2 px-8 rounded-sm"
+            >
               Sign in &rarr;
             </button>
           </form>
