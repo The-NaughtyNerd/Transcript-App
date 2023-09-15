@@ -1,11 +1,48 @@
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Signin = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      console.log({
+        email: email,
+        password: password,
+      });
+      let res = await fetch(
+        'https://api.transcript.almanaracademy.com.ng/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        }
+      );
+      let resJson = await res.json();
+      console.log(res, resJson);
+      if (res.status === 200) {
+        const { message, user } = resJson;
+        console.log(user);
+        toast.success(`${message}`);
+        localStorage.setItem('transcript-uid', user.id);
+        setTimeout(() => navigate('/dashboard'), 3000);
+      } else {
+        if (resJson?.error) toast.error(resJson?.error);
+        else toast.error(`Something went wrong`);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div className="grid place-content-center overflow-hidden md:h-screen bg-gradient-to-r from-[#5d12ad19] to-sky-50">

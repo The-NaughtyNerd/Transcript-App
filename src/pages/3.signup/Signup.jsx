@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -97,8 +99,9 @@ const Signup = () => {
       console.log(res, resJson);
       if (res.status === 201) {
         toast.success(`${resJson?.message}`);
+        setTimeout(() => navigate('/signin'), 2000);
       } else {
-        if (resJson?.errors) toast.error(resJson?.errors[0]?.msg);
+        if (resJson?.error) toast.error(resJson?.error);
         else toast.error(`Something went wrong`);
       }
     } catch (err) {
