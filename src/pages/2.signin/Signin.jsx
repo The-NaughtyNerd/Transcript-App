@@ -46,7 +46,7 @@ const Signin = () => {
               type="password"
               name="password"
               placeholder="password"
-              id=""
+              id="password"
               className="border w-[70%] py-1.5 mb-5 rounded-[4px] focus:border focus:border-blue-400 px-3 outline-none"
               required
             />

@@ -1,13 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Colleges from '../../components/Colleges';
+import Departments from '../../components/Departments';
 
 const Signup = () => {
-  const [selectOption, setSelectOption] = useState('');
-
-  const handleChange = (event) => {
-    setSelectOption(event.target.value);
-    console.log(selectOption);
-  };
-
   return (
     <div className="grid place-content-center overflow-hidden md:h-screen bg-gradient-to-r from-[#5d12ad19] to-sky-50">
       <div className="w-full flex md:flex-row-reverse flex-col justify-between md:p-14 rounded-md shadow-2xl">
@@ -88,41 +83,11 @@ const Signup = () => {
             </div>
 
             <div className="flex flex-col">
-              <label htmlFor="college" className=" text-base pb-1 font-medium">
-                College
-              </label>
-              <select
-                name="college"
-                id="college"
-                onChange={handleChange}
-                value={selectOption}
-                className="border w-[90%] py-1.5  rounded-[4px] focus:border focus:border-blue-400 px-3 outline-none"
-                required
-              >
-                <option value="">Select College</option>
-                <option value="option 1">Health</option>
-                <option value="option 2">Mass Communication</option>
-                <option value="option 3">Computer Science</option>
-                <option value="option 4">Medicine & Surgery</option>
-              </select>
-              <p>Selected Options: {selectOption}</p>
+              <Colleges />
             </div>
 
             <div className="flex flex-col">
-              <label
-                htmlFor="department"
-                className=" text-base pb-1 font-medium"
-              >
-                Department
-              </label>
-              <input
-                type="text"
-                name="department"
-                id="department"
-                placeholder="Department"
-                className="border w-[90%] py-1.5  rounded-[4px] focus:border focus:border-blue-400 px-3 outline-none"
-                required
-              />
+              <Departments />
             </div>
 
             <div>
