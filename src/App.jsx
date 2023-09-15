@@ -5,10 +5,13 @@ import Home from './pages/1.home/Home';
 import Signin from './pages/2.signin/Signin';
 import Signup from './pages/3.signup/Signup';
 import SuccessSignin from './pages/4.successSignin/SuccessSignin';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <div className="">
+      <ToastContainer />
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/signin" element={<Signin />} />
