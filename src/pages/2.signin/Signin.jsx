@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { Welcome } from '../../assets';
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -48,11 +49,7 @@ const Signin = () => {
     <div className="grid place-content-center overflow-hidden md:h-screen bg-gradient-to-r from-[#5d12ad19] to-sky-50">
       <div className="w-full flex md:flex-row flex-col justify-between md:p-14 rounded-md shadow-2xl">
         <div className="md:w-1/2 w-full md:bg-neutral-50 p-4 flex items-center justify-center">
-          <img
-            src="/src/assets/welcome.svg"
-            alt=""
-            className="md:w-full w-[90%]"
-          />
+          <img src={Welcome} alt="welcome-img" className="md:w-full w-[90%]" />
         </div>
 
         <div className="md:w-1/2 w-full flex flex-col justify-center  bg-white pl-7 pt-6 md:pb-0 pb-5 rounded-t-3xl md:rounded-none">

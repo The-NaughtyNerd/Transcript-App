@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+
+import { Outlet, useNavigate } from 'react-router-dom';
+import Navbar from '../../components/Navbar';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -8,7 +10,12 @@ const Dashboard = () => {
     console.log(userId);
     if (!userId) navigate('/signin');
   }, [userId, navigate]);
-  return <div>Dashboard</div>;
+  return (
+    <>
+      <Navbar />
+      <Outlet />
+    </>
+  );
 };
 
 export default Dashboard;
