@@ -42,7 +42,7 @@ const College = () => {
         }
       );
 
-      if (res === 200) {
+      if (res.status === 200) {
         toast.success('College created Successfully');
         setHide(false);
         fetchColleges();

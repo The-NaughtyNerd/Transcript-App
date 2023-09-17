@@ -5,11 +5,10 @@ const Department = () => {
   const [department, setDepartment] = useState([]);
   const [addDepartment, setAddDepartment] = useState('');
   const [collegeOptions, setCollegeOptions] = useState([]);
-
-  const [college, setCollege] = useState([]);
+  const [collegeSelectedOption, setCollegeSelectedOption] = useState(null);
   const [hide, setHide] = useState(false);
 
-  const [collegeSelectedOption, setCollegeSelectedOption] = useState(null);
+  const [college, setCollege] = useState([]);
 
   // Department Fetching
   useEffect(() => {
@@ -50,7 +49,7 @@ const Department = () => {
         }
       );
 
-      if (res === 200) {
+      if (res.status === 200) {
         toast.success('Department created Successfully');
         setHide(false);
         fetchDepartments();
