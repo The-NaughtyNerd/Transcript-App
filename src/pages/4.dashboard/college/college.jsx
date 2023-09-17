@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 const College = () => {
   const [college, setCollege] = useState([]);
   const [addCollege, setAddCollege] = useState('');
   const [hide, setHide] = useState(false);
+  const [search, setSearch] = useState('');
+  // console.log(search);
 
   useEffect(() => {
     fetchColleges();
@@ -102,7 +104,16 @@ const College = () => {
         )}
       </div>
 
-      <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto">
+      <div className="pt-2">
+        <input
+          type="text"
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search Colleges"
+          className="border w-full px-4 rounded-md py-1.5 focus:outline-none focus:border-blue-400 "
+        />
+      </div>
+
+      <div className="mt-9 shadow-sm border rounded-lg overflow-x-auto">
         <table className="w-full table-auto text-sm text-left">
           <thead className="bg-gray-50 text-gray-600 font-medium border-b">
             <tr>
@@ -113,27 +124,33 @@ const College = () => {
             </tr>
           </thead>
           <tbody className="text-gray-600 divide-y">
-            {college.map((item, idx) => (
-              <tr key={idx}>
-                <td className="px-6 py-4 whitespace-nowrap">{item.name}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{item.id}</td>
+            {college
+              .filter((item) => {
+                return search.toLowerCase() === ''
+                  ? item
+                  : item.name.toLowerCase().includes(search);
+              })
+              .map((item, idx) => (
+                <tr key={idx}>
+                  <td className="px-6 py-4 whitespace-nowrap">{item.name}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{item.id}</td>
 
-                <td className="text-right px-6 whitespace-nowrap">
-                  <a
-                    href=""
-                    className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
-                  >
-                    Edit
-                  </a>
-                  <button
-                    href=""
-                    className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
+                  <td className="text-right px-6 whitespace-nowrap">
+                    <a
+                      href=""
+                      className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
+                    >
+                      Edit
+                    </a>
+                    <button
+                      href=""
+                      className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

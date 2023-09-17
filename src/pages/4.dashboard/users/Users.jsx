@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 const Users = () => {
   const [userData, setUserData] = useState([]);
-  const userId = localStorage.getItem('transcript-uid');
+  // const userId = localStorage.getItem('transcript-uid');
   // console.log(userId);
 
   useEffect(() => {
@@ -12,56 +12,18 @@ const Users = () => {
   const fetchColleges = async function () {
     try {
       const res = await fetch(
-        `http://api.transcript.almanaracademy.com.ng/user/${userId}`
+        `http://api.transcript.almanaracademy.com.ng/users`
       );
 
       if (!res.status === 200) throw new Error("Couldn't fetch API");
       const resJson = await res.json();
-      setUserData([resJson.data]);
+      setUserData(resJson.data);
       console.log(userData);
-      console.log(resJson.data);
     } catch (err) {
       console.error(err);
     }
   };
 
-  const tableItems = [
-    {
-      name: 'Solo learn app',
-      date: 'Oct 9, 2023',
-      status: 'Active',
-      price: '$35.000',
-      plan: 'Monthly subscription',
-    },
-    {
-      name: 'Window wrapper',
-      date: 'Oct 12, 2023',
-      status: 'Active',
-      price: '$12.000',
-      plan: 'Monthly subscription',
-    },
-    {
-      name: 'Unity loroin',
-      date: 'Oct 22, 2023',
-      status: 'Archived',
-      price: '$20.000',
-      plan: 'Annually subscription',
-    },
-    {
-      name: 'Background remover',
-      date: 'Jan 5, 2023',
-      status: 'Active',
-      price: '$5.000',
-      plan: 'Monthly subscription',
-    },
-    {
-      name: 'Colon tiger',
-      date: 'Jan 6, 2023',
-      status: 'Active',
-      price: '$9.000',
-      plan: 'Annually subscription',
-    },
-  ];
   return (
     <div className="max-w-screen-xl mx-auto px-4 md:px-8 pt-10">
       <div className="">

@@ -7,6 +7,7 @@ const Department = () => {
   const [collegeOptions, setCollegeOptions] = useState([]);
   const [collegeSelectedOption, setCollegeSelectedOption] = useState(null);
   const [hide, setHide] = useState(false);
+  const [search, setSearch] = useState('');
 
   const [college, setCollege] = useState([]);
 
@@ -71,7 +72,7 @@ const Department = () => {
         'http://api.transcript.almanaracademy.com.ng/colleges'
       ); // Replace with your API endpoint
       const data = await response.json();
-      setCollege(data.data);
+      // setCollege(data.data);
       setCollegeOptions(data.data); // Set the received data as options
     } catch (error) {
       console.error('Error fetching options:', error);
@@ -147,6 +148,15 @@ const Department = () => {
         )}
       </div>
 
+      <div className="pt-2">
+        <input
+          type="text"
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search Department"
+          className="border w-full px-4 rounded-md py-1.5 focus:outline-none focus:border-blue-400 "
+        />
+      </div>
+
       <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto">
         <table className="w-full table-auto text-sm text-left">
           <thead className="bg-gray-50 text-gray-600 font-medium border-b">
@@ -159,33 +169,41 @@ const Department = () => {
             </tr>
           </thead>
           <tbody className="text-gray-600 divide-y">
-            {department.map((dept, idx) => (
-              <tr key={idx}>
-                <td className="px-6 py-4 whitespace-nowrap">{dept.name}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{dept.id}</td>
+            {department
+              .filter((item) => {
+                return search.toLowerCase() === ''
+                  ? item
+                  : item.name.toLowerCase().includes(search);
+              })
+              .map((dept, idx) => (
+                <tr key={idx}>
+                  <td className="px-6 py-4 whitespace-nowrap">{dept.name}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{dept.id}</td>
 
-                {/*  */}
-                <td className="px-6 py-4 whitespace-nowrap">{dept.position}</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {dept.collegeId}
-                </td>
+                  {/*  */}
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {dept.position}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {dept.collegeId}
+                  </td>
 
-                <td className="text-right px-6 whitespace-nowrap">
-                  <a
-                    href=""
-                    className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
-                  >
-                    Edit
-                  </a>
-                  <button
-                    href=""
-                    className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
+                  <td className="text-right px-6 whitespace-nowrap">
+                    <a
+                      href=""
+                      className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
+                    >
+                      Edit
+                    </a>
+                    <button
+                      href=""
+                      className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
