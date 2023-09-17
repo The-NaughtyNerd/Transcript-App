@@ -8,8 +8,7 @@ const Department = () => {
   const [collegeSelectedOption, setCollegeSelectedOption] = useState(null);
   const [hide, setHide] = useState(false);
   const [search, setSearch] = useState('');
-
-  const [college, setCollege] = useState([]);
+  // const [college, setCollege] = useState([]);
 
   // Department Fetching
   useEffect(() => {
@@ -63,17 +62,17 @@ const Department = () => {
 
   //College Fetching API
   useEffect(() => {
-    fetchCollegeOptions(); // Fetch options when the component mounts
+    fetchCollegeOptions();
   }, []);
 
   const fetchCollegeOptions = async () => {
     try {
       const response = await fetch(
         'http://api.transcript.almanaracademy.com.ng/colleges'
-      ); // Replace with your API endpoint
+      );
       const data = await response.json();
       // setCollege(data.data);
-      setCollegeOptions(data.data); // Set the received data as options
+      setCollegeOptions(data.data);
     } catch (error) {
       console.error('Error fetching options:', error);
     }
