@@ -61,7 +61,7 @@ const College = () => {
             Manage Colleges
           </h3>
           <p className="text-gray-600 mt-2">
-            Select and Edit any collge of your choice
+            Select and Edit any college of your choice
           </p>
         </div>
         <div className="mt-3 md:mt-0">
@@ -94,7 +94,7 @@ const College = () => {
               type="submit"
               className="bg-green-400 text-white px-5 rounded-md py-1.5"
             >
-              create
+              Create
             </button>
           </form>
         ) : (
