@@ -6,6 +6,7 @@ const College = () => {
   const [addCollege, setAddCollege] = useState('');
   const [hide, setHide] = useState(false);
   const [search, setSearch] = useState('');
+  const [collegeId, setCollegeId] = useState('');
   // console.log(search);
 
   useEffect(() => {
@@ -52,6 +53,30 @@ const College = () => {
     } catch (err) {
       toast.error(err);
       setHide(false);
+    }
+  };
+
+  const onDelete = async function (id) {
+    try {
+      let res = await fetch(
+        `http://api.transcript.almanaracademy.com.ng/delete-college/${id}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: id,
+          }),
+        }
+      );
+
+      if (res.status === 204) {
+        toast.success('Ypu have deleted a College');
+      }
+    } catch (err) {
+      toast.error(err);
+      // setHide(false);
     }
   };
 
@@ -131,10 +156,9 @@ const College = () => {
                   : item.name.toLowerCase().includes(search);
               })
               .map((item, idx) => (
-                <tr key={idx}>
+                <tr key={idx + 1}>
                   <td className="px-6 py-4 whitespace-nowrap">{item.name}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{item.id}</td>
-
                   <td className="text-right px-6 whitespace-nowrap">
                     <a
                       href=""
@@ -143,7 +167,11 @@ const College = () => {
                       Edit
                     </a>
                     <button
-                      href=""
+                      onClick={() => {
+                        // setCollegeId(item.id);
+                        onDelete(item.id);
+                        // console.log(idx);
+                      }}
                       className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
                     >
                       Delete

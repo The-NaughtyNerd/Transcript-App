@@ -48,7 +48,6 @@ const Department = () => {
           }),
         }
       );
-
       if (res.status === 200) {
         toast.success('Department created Successfully');
         setHide(false);
@@ -73,6 +72,7 @@ const Department = () => {
       const data = await response.json();
       // setCollege(data.data);
       setCollegeOptions(data.data);
+      console.log(data);
     } catch (error) {
       console.error('Error fetching options:', error);
     }
@@ -181,7 +181,7 @@ const Department = () => {
 
                   {/*  */}
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {dept.position}
+                    {dept.collegeName}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     {dept.collegeId}
@@ -194,10 +194,7 @@ const Department = () => {
                     >
                       Edit
                     </a>
-                    <button
-                      href=""
-                      className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
-                    >
+                    <button className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg">
                       Delete
                     </button>
                   </td>
