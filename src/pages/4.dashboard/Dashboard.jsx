@@ -28,12 +28,12 @@ const Dashboard = () => {
   }, [userId, navigate]);
   return (
     <>
-      <div className="bg-gradient-to-r from-sky-100 h-screen to-[#5d12ad19]">
+      <div className="pb-5 bg-gray-50">
         <Navbar />
         <Outlet />
 
         <div className="flex justify-center gap-5 items-center m-4 ">
-          <div className=" w-[30%] h-[83vh] bg-gray-100 rounded-md rounded-t-3xl">
+          <div className=" w-[30%] h-[90%] bg-gray-100 rounded-md rounded-t-3xl">
             <div className="flex mx-auto px-4 items-center pt-9 gap-4 bg-gray-700 p-12  rounded-t-3xl">
               <div className="relative w-20 h-20">
                 <span className="absolute -bottom-[0.3px] right-2 w-[14px] h-[14px] rounded-full border-white bg-green-500"></span>
@@ -83,7 +83,7 @@ const Dashboard = () => {
                   <h1 className="text-lg">Request Destination</h1>
                 </div>
               </div>
-              <div className="pt-6 px-6 cursor-pointer">
+              <div className="py-6 px-6 cursor-pointer">
                 <div className="flex items-center space-x-3 ">
                   <ShoppingCartIcon className="w-8 " color="rgb(82 82 82)" />
                   <h1 className="text-lg">Checkout</h1>
@@ -105,8 +105,8 @@ const Dashboard = () => {
           </div>
 
           <div
-            className="bg-blue-200
-           w-[70%] h-[83vh] rounded-3xl"
+            className="bg-sky-100
+           w-[70%] h-[90%] rounded-3xl"
           >
             <div className="p-5 flex justify-between">
               <div>
@@ -123,7 +123,7 @@ const Dashboard = () => {
                     <span className="text-lg text-neutral-600 font-semibold">
                       Name
                     </span>
-                    Ray Tech
+                    Oluwafemi
                   </h1>
                   <h1 className="flex justify-between">
                     <span className="text-lg text-neutral-600 font-semibold">
