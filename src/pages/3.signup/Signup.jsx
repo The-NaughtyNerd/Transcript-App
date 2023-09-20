@@ -25,7 +25,7 @@ const Signup = () => {
   const fetchOptions = async () => {
     try {
       const response = await fetch(
-        `http://api.transcript.almanaracademy.com.ng/departments`
+        `https://dtkapp.com.ng/departments`
       ); // Replace with your API endpoint
       const data = await response.json();
       setOptions(data.data); // Set the received data as options
@@ -47,7 +47,7 @@ const Signup = () => {
   const fetchCollegeOptions = async () => {
     try {
       const response = await fetch(
-        'http://api.transcript.almanaracademy.com.ng/colleges'
+        'https://dtkapp.com.ng/colleges'
       ); // Replace with your API endpoint
       const data = await response.json();
       setCollegeOptions(data.data); // Set the received data as options
@@ -76,26 +76,23 @@ const Signup = () => {
         userType: 'Student',
         role: 'User',
       });
-      let res = await fetch(
-        'https://api.transcript.almanaracademy.com.ng/signup',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name: name,
-            email: email,
-            username: username,
-            password: password,
-            confirmPassword: confirmPassword,
-            college: collegeSelectedOption,
-            department: selectedOption,
-            userType: 'Student',
-            role: 'User',
-          }),
-        }
-      );
+      let res = await fetch('https://dtkapp.com.ng/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          username: username,
+          password: password,
+          confirmPassword: confirmPassword,
+          college: collegeSelectedOption,
+          department: selectedOption,
+          userType: 'Student',
+          role: 'User',
+        }),
+      });
       let resJson = await res.json();
       console.log(res, resJson);
       if (res.status === 201) {

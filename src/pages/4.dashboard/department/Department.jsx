@@ -10,21 +10,42 @@ const Department = () => {
   const [search, setSearch] = useState('');
   // const [college, setCollege] = useState([]);
 
+  const onDelete = async function (id) {
+    try {
+      let res = await fetch(`https://dtkapp.com.ng/delete-department/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: id,
+        }),
+      });
+
+      if (res.status === 204) {
+        toast.success('You have deleted a Department');
+        fetchDepartments();
+      }
+    } catch (err) {
+      toast.error(err);
+      // setHide(false);
+    }
+  };
+
   // Department Fetching
   useEffect(() => {
     fetchDepartments();
-  }, []);
+  });
 
   const fetchDepartments = async () => {
     try {
-      const res = await fetch(
-        `http://api.transcript.almanaracademy.com.ng/departments`
-      );
+      const res = await fetch(`https://dtkapp.com.ng/departments`);
 
       if (!res.status === 200) throw new Error("Couldn't fetch API");
       const resJson = await res.json();
       setDepartment(resJson.data);
-      console.log(resJson.data);
+      // console.log(department);
+      // console.log(resJson);
     } catch (err) {
       console.error(err);
     }
@@ -35,20 +56,17 @@ const Department = () => {
     e.preventDefault();
 
     try {
-      let res = await fetch(
-        'http://api.transcript.almanaracademy.com.ng/create-department',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name: addDepartment,
-            college: collegeSelectedOption,
-          }),
-        }
-      );
-      if (res.status === 200) {
+      let res = await fetch('https://dtkapp.com.ng/create-department', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: addDepartment,
+          college: collegeSelectedOption,
+        }),
+      });
+      if (res.status === 201) {
         toast.success('Department created Successfully');
         setHide(false);
         fetchDepartments();
@@ -66,9 +84,7 @@ const Department = () => {
 
   const fetchCollegeOptions = async () => {
     try {
-      const response = await fetch(
-        'http://api.transcript.almanaracademy.com.ng/colleges'
-      );
+      const response = await fetch('https://dtkapp.com.ng/colleges');
       const data = await response.json();
       // setCollege(data.data);
       setCollegeOptions(data.data);
@@ -194,7 +210,13 @@ const Department = () => {
                     >
                       Edit
                     </a>
-                    <button className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg">
+                    <button
+                      onClick={() => {
+                        // setCollegeId(item.id);
+                        onDelete(dept.id);
+                      }}
+                      className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
+                    >
                       Delete
                     </button>
                   </td>
