@@ -20,7 +20,7 @@ const College = () => {
       if (!res.status === 200) throw new Error("Couldn't fetch API");
       const resJson = await res.json();
       setCollege(resJson.data);
-      console.log(resJson.data);
+      // console.log(resJson.data);
     } catch (err) {
       console.error(err);
     }

@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { SignupImg, Welcome } from '../../assets';
 
 const Signup = () => {
+  let resb;
+  // let filterDept;
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
@@ -12,45 +14,32 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   // Department Fetching API
   const [options, setOptions] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null); // Track selected options for Department
 
   //College Fetching API
   const [collegeOptions, setCollegeOptions] = useState([]);
   const [collegeSelectedOption, setCollegeSelectedOption] = useState(null); // Track selected option
 
   useEffect(() => {
-    fetchOptions(); // Fetch options when the component mounts
+    fetchCollegeOptions();
+    fetchDepartmentOptions();
   }, []);
 
-  const fetchOptions = async () => {
+  const fetchDepartmentOptions = async () => {
     try {
-      const response = await fetch(
-        `https://dtkapp.com.ng/departments`
-      ); // Replace with your API endpoint
-      const data = await response.json();
-      setOptions(data.data); // Set the received data as options
-    } catch (error) {
-      console.error('Error fetching options:', error);
+      const res = await fetch('https://dtkapp.com.ng/departments');
+      if (!res.status === 200) throw new Error("Couldn't fetch API");
+      const data = await res.json();
+
+      setOptions(data.data);
+    } catch (err) {
+      console.error('Error fetching options:', err);
     }
   };
-
-  const handleOptionChange = (event) => {
-    const selectedValue = event.target.value;
-    setSelectedOption(selectedValue); // Update selected option
-    // const selected = options.find((option) => option.title === selectedValue);
-  };
-
-  useEffect(() => {
-    fetchCollegeOptions(); // Fetch options when the component mounts
-  }, []);
-
   const fetchCollegeOptions = async () => {
     try {
-      const response = await fetch(
-        'https://dtkapp.com.ng/colleges'
-      ); // Replace with your API endpoint
+      const response = await fetch('https://dtkapp.com.ng/colleges');
       const data = await response.json();
-      setCollegeOptions(data.data); // Set the received data as options
+      setCollegeOptions(data.data);
     } catch (error) {
       console.error('Error fetching options:', error);
     }
@@ -58,8 +47,8 @@ const Signup = () => {
 
   const handleCollegeChange = (event) => {
     const selectedValue = event.target.value;
+
     setCollegeSelectedOption(selectedValue); // Update selected option
-    // const selected = options.find((option) => option.title === selectedValue);
   };
 
   const handleSubmit = async function (e) {
@@ -72,7 +61,7 @@ const Signup = () => {
         password: password,
         confirmPassword: confirmPassword,
         college: collegeSelectedOption,
-        department: selectedOption,
+        // department: selectedOption,
         userType: 'Student',
         role: 'User',
       });
@@ -88,7 +77,7 @@ const Signup = () => {
           password: password,
           confirmPassword: confirmPassword,
           college: collegeSelectedOption,
-          department: selectedOption,
+          // department: selectedOption,
           userType: 'Student',
           role: 'User',
         }),
@@ -227,6 +216,7 @@ const Signup = () => {
               />
             </div>
 
+            {/* College Section */}
             <div className="flex flex-col">
               <label htmlFor="college" className=" text-base pb-1 font-medium">
                 College:{' '}
@@ -234,7 +224,6 @@ const Signup = () => {
                   {collegeSelectedOption}
                 </span>
               </label>
-
               <select
                 name="college"
                 id="college"
@@ -251,13 +240,13 @@ const Signup = () => {
               </select>
             </div>
 
+            {/* Department Section */}
             <div className="flex flex-col">
               <label
                 htmlFor="department"
                 className=" text-base pb-1 font-medium"
               >
-                Department:{' '}
-                <span className="text-neutral-500">{selectedOption}</span>
+                Department: <span className="text-neutral-500"></span>
               </label>
 
               <select
@@ -265,21 +254,22 @@ const Signup = () => {
                 id="department"
                 className="border w-[90%] py-1.5 rounded-[4px] focus:border focus:border-blue-400 px-3 outline-none"
                 required
-                onChange={handleOptionChange}
+                // onChange={handleOptionChange}
               >
                 <option value="">Select an option</option>
-                {options.map((option) => (
-                  <option key={option.name} value={option.name}>
-                    {option.name}
-                  </option>
-                ))}
+                {options
+                  .filter(
+                    (value) => value.collegeName === collegeSelectedOption
+                  )
+                  .map((item) => (
+                    <option key={item.name} value={item.name}>
+                      {item.name}
+                    </option>
+                  ))}
               </select>
             </div>
 
-            {/* <div></div> */}
-
             <div className="flex flex-col col-start-1 md:col-end-1 col-end-[-1]">
-              {/* <div></div> */}
               <button
                 type="submit"
                 className="md:w-fit w-[95%] text-white transition-all ease-out bg-[#ab60fa] hover:bg-[#9f5fe3] py-2 px-8 rounded-sm"
